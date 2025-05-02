@@ -1,0 +1,19 @@
+<?php
+/**
+ * @var $block \CravenDunnill\TileSamplesLimit\Block\Message
+ */
+?>
+<?php if ($block->hasSamplesInCart()): ?>
+	<div class="samples-limit-message">
+		<p>
+			<?php if ($block->getRemainingSamplesCount() > 0): ?>
+				<?= __('You have %1 out of 4 tile samples in your cart. You can add %2 more.',
+					$block->getCurrentSamplesCount(),
+					$block->getRemainingSamplesCount()
+				) ?>
+			<?php else: ?>
+				<?= __('You have reached the maximum limit of 4 tile samples. If you want to add different samples, please remove some from your cart first.') ?>
+			<?php endif; ?>
+		</p>
+	</div>
+<?php endif; ?>

@@ -1,0 +1,25 @@
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+	.samples-limit-message {
+		background: #f8f8f8;
+		border: 1px solid #ddd;
+		padding: 15px;
+		margin-bottom: 20px;
+		font-weight: 600;
+		color: #333;
+		border-radius: 3px;
+	}
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+	.samples-limit-message {
+		padding: 20px;
+	}
+}

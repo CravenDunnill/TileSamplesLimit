@@ -1,0 +1,22 @@
+{
+	"name": "cravendunnill/module-tilesampleslimit",
+	"description": "Limit the number of tile samples that can be added to cart",
+	"type": "magento2-module",
+	"version": "1.0.0",
+	"license": [
+		"OSL-3.0",
+		"AFL-3.0"
+	],
+	"require": {
+		"php": "~7.4.0||~8.1.0||~8.2.0",
+		"magento/framework": "103.0.*"
+	},
+	"autoload": {
+		"files": [
+			"registration.php"
+		],
+		"psr-4": {
+			"CravenDunnill\\TileSamplesLimit\\": ""
+		}
+	}
+}
