@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-	<preference for="Magento\Checkout\Controller\Cart\Add" type="CravenDunnill\TileSamplesLimit\Controller\Cart\Add" />
+	<!-- Remove the controller preference and use a plugin instead -->
+	<!-- <preference for="Magento\Checkout\Controller\Cart\Add" type="CravenDunnill\TileSamplesLimit\Controller\Cart\Add" /> -->
+	
+	<type name="Magento\Checkout\Controller\Cart\Add">
+		<plugin name="cravendunnill_tilesampleslimit_add_to_cart_controller" type="CravenDunnill\TileSamplesLimit\Model\Plugin\AddToCartControllerPlugin" sortOrder="10" />
+	</type>
+	
 	<type name="CravenDunnill\TileSamplesLimit\Model\SamplesLimit">
 		<arguments>
 			<argument name="samplesLimit" xsi:type="number">4</argument>

@@ -84,9 +84,12 @@ class SamplesLimit
 			// Load attribute set by ID
 			$attributeSet = $this->attributeSetRepository->get($attributeSetId);
 			
-			// Compare attribute set name
+			// Compare attribute set name with exact match
 			return $attributeSet->getAttributeSetName() === self::SAMPLE_ATTRIBUTE_SET;
 		} catch (NoSuchEntityException $e) {
+			return false;
+		} catch (\Exception $e) {
+			// Added more robust error handling
 			return false;
 		}
 	}
@@ -110,9 +113,12 @@ class SamplesLimit
 				
 				$product = $this->productRepository->getById($productId);
 				if ($this->isTileSample($product)) {
-					$sampleCount += $item->getQty();
+					$sampleCount += (int)$item->getQty();
 				}
 			} catch (NoSuchEntityException $e) {
+				continue;
+			} catch (\Exception $e) {
+				// Added more robust error handling
 				continue;
 			}
 		}
@@ -130,6 +136,7 @@ class SamplesLimit
 	 */
 	public function validateLimit(Product $product, int $qty = 1): bool
 	{
+		// First explicitly check if this is a tile sample
 		if (!$this->isTileSample($product)) {
 			return true;
 		}

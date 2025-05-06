@@ -55,12 +55,15 @@ class CartPlugin
 		$productId = is_object($productInfo) ? $productInfo->getId() : $productInfo;
 		$product = $this->productRepository->getById($productId);
 		
-		$qty = isset($requestInfo['qty']) ? (int)$requestInfo['qty'] : 1;
-		
-		if (!$this->samplesLimit->validateLimit($product, $qty)) {
-			throw new LocalizedException(
-				__('You can only order 4 samples. If you want to change one, remove it from the Cart.')
-			);
+		// Only apply limit validation for tile samples
+		if ($this->samplesLimit->isTileSample($product)) {
+			$qty = isset($requestInfo['qty']) ? (int)$requestInfo['qty'] : 1;
+			
+			if (!$this->samplesLimit->validateLimit($product, $qty)) {
+				throw new LocalizedException(
+					__('You can only order 4 samples. If you want to change one, remove it from the Cart.')
+				);
+			}
 		}
 		
 		return [$productInfo, $requestInfo];

@@ -38,9 +38,13 @@ class CheckSamplesLimit implements ObserverInterface
 	public function execute(Observer $observer)
 	{
 		$product = $observer->getEvent()->getProduct();
-		$requestItem = $observer->getEvent()->getRequest()->getParam('qty');
-		$qty = empty($requestItem) ? 1 : $requestItem;
 		
-		$this->samplesLimit->validateLimit($product, (int)$qty);
+		// Only apply limit validation for tile samples
+		if ($this->samplesLimit->isTileSample($product)) {
+			$requestItem = $observer->getEvent()->getRequest()->getParam('qty');
+			$qty = empty($requestItem) ? 1 : $requestItem;
+			
+			$this->samplesLimit->validateLimit($product, (int)$qty);
+		}
 	}
 }
